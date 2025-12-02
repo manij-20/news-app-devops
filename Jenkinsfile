@@ -25,7 +25,7 @@ pipeline {
         //}
          stage('deploy tomcat') {
             steps {
-                sh "sudo cp /var/lib/jenkins/workspace/multi_branch_feature-2/target/news-app.war /opt/apache-tomcat-9.0.112/webapps/"
+                sh "sudo cp /var/lib/jenkins/workspace/multi_branch_feature-2/target/news-app.war /opt/apache-tomcat-9.0.112/webapps"
             }
         }
   // stage('Upload Artifact to JFrog') {
