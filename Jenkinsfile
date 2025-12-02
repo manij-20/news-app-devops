@@ -25,7 +25,7 @@ pipeline {
         //}
          stage('deploy tomcat') {
             steps {
-                sh "sudo cp /var/lib/jenkins/workspace/jenkinsfilef12_feature-2/target/news-app.war /opt/tomcat10/webapps/"
+                sh "sudo cp /var/lib/jenkins/workspace/job1/target/news-app.war /opt/apache-tomcat-9.0.112/webapps/"
             }
         }
   // stage('Upload Artifact to JFrog') {
