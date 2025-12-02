@@ -5,7 +5,7 @@ pipeline {
         stage('checkout') {
             steps {
                 sh "rm -rf news-app-devops"
-              sh  "git clone https://github.com/vinayak432/news-app-devops/"
+              sh  "git clone https://github.com/manij-20/news-app-devops.git"
             }
         }
    stage(' build') {
