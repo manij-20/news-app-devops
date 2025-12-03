@@ -49,4 +49,29 @@ pipeline {
             echo 'Build or deployment failed. Check logs for details.'
         }
     }
+    stage('Push the artifacts into JFrog Artifactory') {
+    steps {
+        script {
+            // Get the current date and time in the format: yyyy-MM-dd_HH-mm
+            def currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm").format(new Date())
+
+            // Define the target path with the timestamp
+            def targetPath = "news-app-devops/${currentDate}/"
+
+            // Upload the artifact to JFrog Artifactory with the timestamped path
+            rtUpload(
+                serverId: "jfrog",
+                spec: """{
+                    "files": [
+                        {
+                            "pattern": "*.war",
+                            "target": "${targetPath}"
+                        }
+                    ]
+                }"""
+            )
+        }
+    }
+}
+
 }
