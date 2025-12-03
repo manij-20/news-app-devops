@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Feature 2 News App</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+   /* <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
           rel="stylesheet">
 
     <style>
@@ -108,12 +108,12 @@
         window.onload = function(){
             fetchNews(true);
         };
-    </script>
+    </script>*/
 
 </head>
 <body>
 
-<div class="container py-4">
+/*<div class="container py-4">
 
     <h2 class="mb-4 text-center">📰 Feature 2 News App</h2>
 
@@ -143,7 +143,7 @@
 
     <div id="loading" class="text-center mb-3">Loading news...</div>
 
-    <div class="row" id="news"></div>
+    <div class="row" id="news"></div>*/
 
 </div>
 
