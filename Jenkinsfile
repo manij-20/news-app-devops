@@ -1,37 +1,85 @@
 pipeline {
-    agent any
-
+    agent { label 'java' }
     stages {
-        stage('checkout') {
+        stage('News-App-Checkout') {
             steps {
-                sh "rm -rf news-app-devops"
-              sh  "git clone https://github.com/manij-20/news-app-devops.git"
+                sh 'rm -rf news-app-devops'
+                sh 'git clone https://github.com/Devopsdemo2025/news-app-devops.git'
+                echo "git clone completed"
             }
         }
-   stage(' build') {
+        stage('Build') {
             steps {
-                sh "mvn clean package"
+                sh 'mvn clean package'
             }
         }
-         stage('Test') {
+        stage('Test') {
             steps {
-                sh "mvn test"
+                sh 'mvn test'
             }
         }
- //    stage('version build') {
-   //         steps {
-     //           sh "mvn "
-       //     }
-        //}
-         stage('deploy tomcat') {
+        stage('Version-Build') {
             steps {
-                sh "sudo cp /var/lib/jenkins/workspace/multi_branch_feature-2/target/news-app.war /opt/apache-tomcat-9.0.112/webapps"
+                script {
+                    // Example: version = 1.0.<BUILD_NUMBER>
+                    def version = "1.0.${env.BUILD_NUMBER}"
+                    echo "Setting project version to ${version}"
+                    
+                    // Update pom.xml version
+                    sh "mvn versions:set -DnewVersion=${version}"
+                    
+                    // Build with new version
+                    sh "mvn clean package"
+                }
             }
         }
-  // stage('Upload Artifact to JFrog') {
-    //steps {
-      //  sh 'mvn deploy'
-    //}
-//}
+        stage('Deploy') {
+    steps {
+   sh "sudo scp /home/slave1/workspace/p_MultiBranch_Pipeline_feature-1/target/news-app.war  jenkins@13.233.20.29:/opt/apache-tomcat-11.0.14/webapps/" 
+      echo "build deployed"
     }
+}
+        // 6.3: Push the artifacts to Jfrog repository
+stage('Push the artifacts into Jfrog Artifactory') {
+    steps {
+        script {
+            // Get the current date and time in the format: yyyy-MM-dd_HH-mm
+            def currentDate = new java.text.SimpleDateFormat("yyyy-MM-dd_HH-mm").format(new Date())
+
+            // Define the target path with the timestamp
+            def targetPath = "NewsApp/${currentDate}/"
+
+            // Configure the Artifactory server
+            rtServer(
+                id: 'Artifactory',
+                url: 'https://trialyth1ui.jfrog.io/artifactory',
+                credentialsId: 'jfrog-credentials-id'   // must match Jenkins credentials
+            )
+
+            // Upload the artifact to JFrog Artifactory with the timestamped path
+            rtUpload(
+                serverId: 'Artifactory',
+                spec: """
+                {
+                    "files": [
+                        {
+                            "pattern": "*.war",
+                            "target": "${targetPath}"
+                        }
+                    ]
+                }
+                """
+            )
+        }
+    }
+
+
+}
+    }
+    post {
+    success {
+        archiveArtifacts artifacts: 'target/*.war', fingerprint: true
+    }
+}
+    
 }
