@@ -10,7 +10,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'feature-1', url: 'https://github.com/sammup-123/news-app-devops.git'
+                git branch: 'feature-1', url: 'https://github.com/manij-20/news-app-devops.git'
             }
         }
 
