@@ -6,7 +6,6 @@ pipeline {
         maven 'maven'
     }
     stages {
-
         stage('Checkout') {
             steps {
                 git branch: 'feature-2', url: 'https://github.com/manij-20/news-app-devops.git'
