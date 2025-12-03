@@ -11,7 +11,6 @@ pipeline {
                 git branch: 'feature-1', url: 'https://github.com/manij-20/news-app-devops.git'
             }
         }
-
         stage('Build') {
             steps {
                 sh 'mvn clean package -DskipTests=false'
