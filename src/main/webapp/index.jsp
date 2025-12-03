@@ -1,18 +1,28 @@
+<%@ page import="java.util.List" %>
 <html>
 <head>
     <meta http-equiv="refresh" content="10">
+    <title>Today's News</title>
 </head>
 <body>
-    <h2>Today's News (India) - <%= request.getAttribute("date") %></h2>
+
+    <h2>Today's News (India) - 
+        <%= request.getAttribute("date") != null ? request.getAttribute("date") : "No date available" %>
+    </h2>
 
     <ul>
         <%
-            java.util.List<String> headlines = 
-                (java.util.List<String>) request.getAttribute("headlines");
+            List<String> headlines = (List<String>) request.getAttribute("headlines");
 
-            for (String h : headlines) {
+            if (headlines != null && !headlines.isEmpty()) {
+                for (String h : headlines) {
         %>
-            <li><%= h %></li>
+                    <li><%= h %></li>
+        <%
+                }
+            } else {
+        %>
+                <li>No headlines available</li>
         <%
             }
         %>
