@@ -84,6 +84,6 @@
 <repository>
 <id>jfrog-releases</id>
 <url>https://trialo4po87.jfrog.io/artifactory/news-app-devops-releases/</url>
-</ repository>
+</repository>
 </distributionManagement>
 </project>
