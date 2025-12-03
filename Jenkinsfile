@@ -27,7 +27,7 @@ pipeline {
         stage('Deploy WAR to Tomcat') {
             steps {
                 sh '''
-                    TOMCAT_PATH="/opt/apache-tomcat-10.1.49/webapps"
+                    TOMCAT_PATH="/opt/apache-tomcat-9.0.112/webapps"
                     WAR_FILE="target/news-app.war"
 
                     echo "Cleaning old deployment..."
