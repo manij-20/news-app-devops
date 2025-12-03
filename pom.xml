@@ -76,13 +76,13 @@
 
         </plugins>
     </build>
-‹distributionManagement>
-‹snapshotRepository>
-<id›jfrog-snapshots</id>
+<distributionManagement>
+<snapshotRepository>
+<id>jfrog-snapshots</id>
 <url>https://trialo4po87.jfrog.io/artifactory/api/maven/news-app-devops/</url>
-</ snapshotRepository>
+</snapshotRepository>
 <repository>
-< id>jfrog-releases</id>
+<id>jfrog-releases</id>
 <url>https://trialo4po87.jfrog.io/artifactory/api/maven/news-app-devops-releases/</url>
 </ repository>
 </distributionManagement>
