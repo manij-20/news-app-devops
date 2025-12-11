@@ -7,7 +7,7 @@ on:
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout Source Code
@@ -29,12 +29,12 @@ jobs:
 
     - name: Check & Install Maven
       run: |
-        echo "Checking Maven"
+        echo "=== Checking Maven ==="
         if mvn -version >/dev/null 2>&1; then
             echo "Maven already installed"
             mvn -version
         else
-            echo "Installing Maven"
+            echo "Installing Maven..."
             sudo apt install -y maven
             mvn -version
         fi
@@ -43,14 +43,14 @@ jobs:
     - name: Check & Install Tomcat 10
       run: |
         echo "Checking Tomcat installation"
-        if [ -d "/opt/tomcat10" ]; then
+        if [ -d "/opt/apache-tomcat-10.1.50" ]; then
             echo "Tomcat already installed"
         else
             echo "Installing Tomcat 10..."
             cd /opt
-            sudo wget https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.30/bin/apache-tomcat-10.1.30.tar.gz
-            sudo tar -xzf apache-tomcat-10.1.30.tar.gz
-            sudo mv apache-tomcat-10.1.30 /opt/tomcat10
+            sudo wget https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.50/bin/apache-tomcat-10.1.50.tar.gz
+            sudo tar -xzf apache-tomcat-10.1.50.tar.gz
+            sudo mv apache-tomcat-10.1.50 /opt/tomcat10
             sudo chmod +x /opt/tomcat10/bin/*.sh
         fi
 
@@ -75,18 +75,18 @@ jobs:
 
        echo "Starting Tomcat"
        sudo /opt/tomcat10/bin/startup.sh
-       sleep 15
+       sleep 30
         
     - name: Status check
       run: |
-        curl -I http://localhost:8080/news-app/ || true
+        curl -I http://65.2.140.20:8080/news-app/ || true
         
     - name: Verify app content
       run: |
-       RESPONSE=$(curl -s http://localhost:8080/news-app/)
+       RESPONSE=$(curl -s http://65.2.140.20:8080/news-app/)
        echo "$RESPONSE" | grep "Welcome to news App" || true
        echo "$RESPONSE" | grep "Live News Categories" || true
        echo "$RESPONSE" | grep "Top Headlines" || true
-
+        sleep 60
        echo "Stopping Tomcat"
        sudo /opt/tomcat10/bin/shutdown.sh || true
