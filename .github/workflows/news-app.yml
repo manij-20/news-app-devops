@@ -75,7 +75,7 @@ jobs:
 
        echo "Starting Tomcat"
        sudo /opt/tomcat10/bin/startup.sh
-       sleep 15
+       sleep 30
         
     - name: Status check
       run: |
