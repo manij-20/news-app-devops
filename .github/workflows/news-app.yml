@@ -16,6 +16,10 @@ jobs:
     steps:
     - name: Checkout Source Code
       uses: actions/checkout@v4
+    - name: Use secret
+      env:
+        API_KEY: ${{ secrets.REPO_TOKEN }}
+      run: curl "https://api.com?key=$API_KEY"
 
     - name: Check & Install Java 17
       run: |
