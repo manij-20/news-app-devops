@@ -12,6 +12,12 @@ jobs:
     env:
       NODE_ENV: "dev"
     runs-on: ubuntu-latest
+    environment:
+      name: PROD
+
+    steps:
+    - name: Env Secrets
+      run: echo "${{ secrets.DB_PWD }}"
 
     steps:
     - name: Checkout Source Code
