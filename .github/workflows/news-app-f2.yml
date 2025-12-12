@@ -43,16 +43,17 @@ jobs:
     - name: Check & Install Tomcat 10
       run: |
         echo "Checking Tomcat installation"
-        if [ -d "/opt/apache-tomcat-10.1.50" ]; then
+        if [ -d "/opt/tomcat10" ]; then
             echo "Tomcat already installed"
         else
             echo "Installing Tomcat 10..."
-            cd /opt
-            sudo wget https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.50/bin/apache-tomcat-10.1.50.tar.gz
-            sudo tar -xzf apache-tomcat-10.1.50.tar.gz
-            sudo mv apache-tomcat-10.1.50 /opt/tomcat10
+            sudo mkdir -p /opt/tomcat10
+            sudo wget -P /opt https://archive.apache.org/dist/tomcat/tomcat-10/v10.1.50/bin/apache-tomcat-10.1.50.tar.gz
+            sudo tar -xzf /opt/apache-tomcat-10.1.50.tar.gz -C /opt/tomcat10 --strip-components=1
             sudo chmod +x /opt/tomcat10/bin/*.sh
+            echo "Tomcat installed successfully"
         fi
+
 
     - name: Build WAR File
       run: |
