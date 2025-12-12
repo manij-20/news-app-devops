@@ -19,7 +19,7 @@ jobs:
     - name: Use secret
       env:
         API_KEY: ${{ secrets.REPO_TOKEN }}
-      run: curl "https://api.com?key=$API_KEY"
+      run: curl "http://localhost.com?key=$API_KEY"
 
     - name: Check & Install Java 17
       run: |
