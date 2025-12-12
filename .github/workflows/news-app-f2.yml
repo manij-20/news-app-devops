@@ -60,6 +60,23 @@ jobs:
   
         mvn clean package -DskipTests
 
+    - name: Setup JFrog CLI
+      uses: jfrog/setup-jfrog-cli@v4
+      with:
+        version: latest
+
+    - name: Configure JFrog CLI
+      run: |
+        jfrog config add artifactory-server \
+        --url "https://trialo4po87.jfrog.io/" \
+        --access-token "${{ secrets.JFROG_TOKEN }}" \
+        --interactive=false
+
+    - name: Upload WAR to JFrog
+      run: |
+        TIMESTAMP=$(date +%Y%m%d%H%M%S)
+        jfrog rt upload "target/*.war" "news-app-devops/${TIMESTAMP}/"    
+
 
     - name: Deploy WAR to Tomcat
       run: |
