@@ -54,7 +54,6 @@ jobs:
             sudo chmod +x /opt/tomcat10/bin/*.sh
         fi
 
-
     - name: Build WAR File
       run: |
   
