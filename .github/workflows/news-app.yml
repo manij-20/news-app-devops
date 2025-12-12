@@ -4,9 +4,13 @@ on:
   push:
     branches: [ feature-1 ]
   pull_request:
-
+env: 
+  APP_NAME: "news-app"
+  
 jobs:
   build-deploy:
+    env:
+      NODE_ENV: "dev"
     runs-on: self-hosted
 
     steps:
@@ -15,6 +19,7 @@ jobs:
 
     - name: Check & Install Java 17
       run: |
+        echo "$APP_NAME $NODE_ENV"
         echo "Checking Java"
         if java -version >/dev/null 2>&1; then
             echo "Java already installed"
