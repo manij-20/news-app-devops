@@ -46,7 +46,6 @@ jobs:
         if [ -d "/opt/apache-tomcat-10.1.50" ]; then
             echo "Tomcat already installed"
         else
-           echo "Installing tomcat"
            sudo mkdir -p /opt/tomcat10
            wget https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.50/bin/apache-tomcat-10.1.50.tar.gz
            sudo tar -xvzf apache-tomcat-10.1.50.tar.gz -C /opt/tomcat10 --strip-components=1
