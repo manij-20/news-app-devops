@@ -2,7 +2,7 @@ name:  Matrix Basics
 
 on:
   push:
-    branches: [ main ]
+    branches: [ feature-1 ]
   pull_request:
 
 jobs:
